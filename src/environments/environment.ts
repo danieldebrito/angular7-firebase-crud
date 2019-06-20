@@ -11,7 +11,8 @@ export const environment = {
     projectId: 'angular7-firebase-crud',
     storageBucket: 'angular7-firebase-crud.appspot.com',
     messagingSenderId: '1049933222988',
-    appId: '1:1049933222988:web:59fae7a588fac581'}
+    appId: '1:1049933222988:web:59fae7a588fac581'
+  }
 };
 
 /*

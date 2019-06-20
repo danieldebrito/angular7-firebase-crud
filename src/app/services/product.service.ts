@@ -7,17 +7,17 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 })
 export class ProductService {
 
-  producList: AngularFireList<any>;
-  sletectProduct: Product = new Product();
+  productList: AngularFireList<any>;
+  selectedtProduct: Product = new Product();
 
   constructor( private firebase: AngularFireDatabase) { }
 
   getProduts() {
-    this.producList =  this.firebase.list('products');
+    return this.productList =  this.firebase.list('products');
   }
 
   insertProduct(product: Product) {
-    this.producList.push({
+    this.productList.push({
       name: product.name,
       category: product.category,
       location: product.location,
@@ -26,7 +26,7 @@ export class ProductService {
   }
 
   updateProduct(product: Product) {
-    this.producList.update(product.$key, {
+    this.productList.update(product.$key, {
       name: product.name,
       category: product.category,
       location: product.location,
@@ -35,7 +35,7 @@ export class ProductService {
   }
 
   deleteProduct($key: string) {
-    this.producList.remove($key);
+    this.productList.remove($key);
   }
 
 }

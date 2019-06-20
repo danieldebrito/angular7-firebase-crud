@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { ProductService } from './../../../services/product.service';
+import { Product } from 'src/app/models/product';
+
 
 @Component({
   selector: 'app-product',
@@ -7,9 +11,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductComponent implements OnInit {
 
-  constructor() { }
+  constructor(private productService: ProductService ) { }
 
-  ngOnInit() {
+  resetForm(productForm: NgForm ) {
+    if (productForm != null) {
+      productForm.reset();
+      this.productService.selectedtProduct = new Product();
+    }
   }
+
+  onSubmit(productForm: NgForm) {
+   // this.productService.insertProduct(productForm.value);
+   this.resetForm(productForm);
+  }
+
+  ngOnInit() { }
 
 }
