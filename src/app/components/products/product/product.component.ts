@@ -2,6 +2,7 @@ import { Component, OnInit, } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ProductService } from './../../../services/product.service';
 import { Product } from 'src/app/models/product';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -11,20 +12,37 @@ import { Product } from 'src/app/models/product';
 })
 export class ProductComponent implements OnInit {
 
-  constructor(private productService: ProductService ) { }
+  constructor(
+    private productService: ProductService,
+    private toastr: ToastrService
+  ) { }
 
-  resetForm(productForm: NgForm ) {
+  resetForm(productForm?: NgForm) {
     if (productForm != null) {
       productForm.reset();
       this.productService.selectedtProduct = new Product();
     }
   }
 
-  onSubmit(productForm: NgForm) {
-   // this.productService.insertProduct(productForm.value);
-   this.resetForm(productForm);
+  addProduct(productForm: NgForm) {
+    this.productService.insertProduct(productForm.value);
+    this.toastr.success('Agregado', 'APP');
   }
 
-  ngOnInit() { }
+  onSubmit(productForm: NgForm) {
+    if (!productForm.value.$key) {
+      this.productService.insertProduct(productForm.value);
+      this.toastr.success('Agregado', 'APP');
+    } else {
+      this.productService.updateProduct(productForm.value);
+      this.toastr.success('Modificado', 'APP');
+    }
+    this.resetForm(productForm);
+  }
+
+  ngOnInit() {
+    this.productService.getProduts();
+    this.resetForm();
+  }
 
 }

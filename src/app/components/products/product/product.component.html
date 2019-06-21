@@ -2,6 +2,9 @@
   <div class="card">
     <div class="card-body">
       <form #ProductForm="ngForm" (ngSubmit)="onSubmit(ProductForm)">
+        
+        <!-- este esta oculto, si tiene key significa que estamos editando, si no es un alta, sirve pa eso. -->
+        <input type="hidden" name="$key" #$key="ngModel" [(ngModel)]="productService.selectedtProduct.$key">
 
         <div class="form-group">
           <input type="text" class="form-control" name="name" #name="ngModel"
